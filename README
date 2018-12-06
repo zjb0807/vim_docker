@@ -1,0 +1,6 @@
+vim docker images
+
+resize the terminal window
+```
+ps -ef | grep 'docker exec -it' | grep -v grep | awk '{ print $2}' | xargs kill -SIGWINCH
+```
