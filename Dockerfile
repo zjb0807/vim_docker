@@ -1,4 +1,4 @@
-FROM centos:7.5.1804
+FROM centos:7.6.1810
 
 ARG INSTALL_DIR=/root/install
 WORKDIR ${INSTALL_DIR}
@@ -12,8 +12,7 @@ ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/local/lib
 
 # Install EPEL and dependencies
 RUN yum install -y wget curl git && \
-    wget http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm && \
-    rpm -ivh epel-release-latest-7.noarch.rpm && \
+	yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm && \
     yum repolist && \
     yum remove -y vi* && \
     yum install -y gcc gcc-c++ make cmake automake ctags tree jq \
@@ -21,7 +20,7 @@ RUN yum install -y wget curl git && \
 
 # Install Graphviz
 ARG GRAPHVIZ_VERSION=2.30.1-21
-RUN wget http://rpmfind.net/linux/centos/7.5.1804/os/x86_64/Packages/graphviz-${GRAPHVIZ_VERSION}.el7.x86_64.rpm && \
+RUN wget http://rpmfind.net/linux/centos/7.6.1810/os/x86_64/Packages/graphviz-${GRAPHVIZ_VERSION}.el7.x86_64.rpm && \
     yum install -y graphviz-${GRAPHVIZ_VERSION}.el7.x86_64.rpm && \
     rm -f graphviz-${GRAPHVIZ_VERSION}.el7.x86_64.rpm
 
@@ -75,7 +74,7 @@ RUN git clone https://github.com/VundleVim/Vundle.vim.git /root/.vim/bundle/Vund
 
 # Install language
 ## Go
-ARG GO_VERSION=1.11.1
+ARG GO_VERSION=1.11.2
 RUN wget https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz && \
     tar -zxf go${GO_VERSION}.linux-amd64.tar.gz && \
     rm -f go${GO_VERSION}.linux-amd64.tar.gz
@@ -95,7 +94,7 @@ RUN wget https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-linux-x64.
     npm install -g typescript
 
 ## Rust
-ARG RUST_VERSION=1.30.0
+ARG RUST_VERSION=1.30.1
 RUN wget https://static.rust-lang.org/dist/rust-${RUST_VERSION}-x86_64-unknown-linux-gnu.tar.gz && \
     tar -zxf rust-${RUST_VERSION}-x86_64-unknown-linux-gnu.tar.gz && \
 	rm -f rust-${RUST_VERSION}-x86_64-unknown-linux-gnu.tar.gz && \
@@ -136,6 +135,9 @@ RUN echo '############### env ###############' >> ${SHRCFILE} && \
     echo '' >> ${SHRCFILE}
 
 WORKDIR /root
+
+# TODO update
+#ADD vimrc_new /root/.vimrc
 
 CMD ["zsh"]
 

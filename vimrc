@@ -41,7 +41,6 @@ Plugin 'Raimondi/delimitMate'
 Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'https://github.com/scrooloose/syntastic'
-Plugin 'Yggdroot/indentLine'
 Plugin 'flazz/vim-colorschemes'
 " #################### Plugin #################### "
 
@@ -62,6 +61,7 @@ filetype plugin indent on    " required
 
 " #################### Env #################### "
 source $VIMRUNTIME/vimrc_example.vim
+let mapleader = ";"
 
 " YouCompleteMe {{{
     let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
@@ -76,9 +76,7 @@ source $VIMRUNTIME/vimrc_example.vim
     "let g:syntastic_javascript_eslint_exec = 'eslint'
     let g:ycm_error_symbol='>>'
     let g:ycm_warning_symbol='>*'
-    nnoremap <leader>gc :YcmCompleter GoToDeclaration<CR>
-    nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
-    nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
+	nnoremap <leader>gd :YcmCompleter GoTo<CR>
     nmap <F4> :YcmDiags<CR>
     "inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
     let g:ycm_collect_identifiers_from_tags_files = 1
@@ -152,11 +150,6 @@ source $VIMRUNTIME/vimrc_example.vim
     let g:syntastic_check_on_wq = 0
 " }}}
 
-" indentLine {{{
-    let g:indentLine_enabled = 1
-    let g:indentLine_color_term = 239
-" }}}
-
 " vim-colorschemes {{{
     if filereadable(expand("/root/.vim/bundle/vim-colorschemes/colors/molokai.vim"))
         colorscheme molokai
@@ -165,7 +158,6 @@ source $VIMRUNTIME/vimrc_example.vim
 
 " config {{{
     syntax on
-    let mapleader = ";"
     set encoding=utf-8
     set vb t_vb=
     set incsearch
@@ -177,7 +169,7 @@ source $VIMRUNTIME/vimrc_example.vim
     set nobackup
     set noundofile
     set noswapfile
-    set mouse=a
+    set mouse-=a
 
     set number
     set relativenumber
