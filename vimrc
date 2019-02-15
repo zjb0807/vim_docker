@@ -86,6 +86,8 @@ let mapleader = ";"
     let g:ycm_cache_omnifunc=0
     let g:ycm_complete_in_comments=1
     let g:ycm_min_num_of_chars_for_completion=1
+	" rust src
+	let g:ycm_rust_src_path = '/root/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src'
 " }}}
 
 " NERDTree {{{

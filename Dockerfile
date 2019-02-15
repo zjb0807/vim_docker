@@ -95,18 +95,21 @@ RUN wget https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-linux-x64.
 
 ## Rust
 ARG RUST_VERSION=1.30.1
-RUN wget https://static.rust-lang.org/dist/rust-${RUST_VERSION}-x86_64-unknown-linux-gnu.tar.gz && \
-    tar -zxf rust-${RUST_VERSION}-x86_64-unknown-linux-gnu.tar.gz && \
-	rm -f rust-${RUST_VERSION}-x86_64-unknown-linux-gnu.tar.gz && \
-	cd rust-${RUST_VERSION}-x86_64-unknown-linux-gnu && \
-	./install.sh
+ENV PATH $HOME/.cargo/bin:$PATH
+RUN curl https://sh.rustup.rs -sSf | sh -s -- -y && \
+	rustup component add rust-src
+#RUN wget https://static.rust-lang.org/dist/rust-${RUST_VERSION}-x86_64-unknown-linux-gnu.tar.gz && \
+#    tar -zxf rust-${RUST_VERSION}-x86_64-unknown-linux-gnu.tar.gz && \
+#	rm -f rust-${RUST_VERSION}-x86_64-unknown-linux-gnu.tar.gz && \
+#	cd rust-${RUST_VERSION}-x86_64-unknown-linux-gnu && \
+#	./install.sh
 
 # Generate ycm_extra_conf.py
 RUN cd /root/.vim/bundle/YouCompleteMe && \
     git submodule update --init --recursive && \
     python install.py --clang-completer \
 	--go-completer \
-	--racer-completer && \
+	--rust-completer && \
 	#--js-completer && \
     cp third_party/ycmd/examples/.ycm_extra_conf.py /root
 
