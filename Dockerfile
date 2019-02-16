@@ -97,7 +97,8 @@ RUN wget https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-linux-x64.
 ARG RUST_VERSION=1.30.1
 ENV PATH $HOME/.cargo/bin:$PATH
 RUN curl https://sh.rustup.rs -sSf | sh -s -- -y && \
-	rustup component add rust-src
+	rustup component add rust-src && \
+	cargo +nightly install racer
 #RUN wget https://static.rust-lang.org/dist/rust-${RUST_VERSION}-x86_64-unknown-linux-gnu.tar.gz && \
 #    tar -zxf rust-${RUST_VERSION}-x86_64-unknown-linux-gnu.tar.gz && \
 #	rm -f rust-${RUST_VERSION}-x86_64-unknown-linux-gnu.tar.gz && \
@@ -134,6 +135,9 @@ RUN echo '############### env ###############' >> ${SHRCFILE} && \
     echo 'set -o vi' >> ${SHRCFILE} && \
     echo 'alias vi="vim"' >> ${SHRCFILE} && \
     echo 'alias tmux="tmux -2"' >> ${SHRCFILE} && \
+    echo 'export GO111MODULE=on'
+    echo 'export GOPROXY=https://goproxy.io'
+    echo 'export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"' >> ${SHRCFILE} && \
     echo '############### env ###############' >> ${SHRCFILE} && \
     echo '' >> ${SHRCFILE}
 

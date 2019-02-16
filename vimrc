@@ -42,6 +42,8 @@ Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'https://github.com/scrooloose/syntastic'
 Plugin 'flazz/vim-colorschemes'
+"Plugin 'fatih/vim-go'
+Plugin 'racer-rust/vim-racer'
 " #################### Plugin #################### "
 
 " All of your Plugins must be added before the following line
@@ -81,13 +83,15 @@ let mapleader = ";"
     "inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
     let g:ycm_collect_identifiers_from_tags_files = 1
     let g:ycm_seed_identifiers_with_syntax = 1
-    set completeopt-=preview
+	set completeopt-=preview
     let g:ycm_confirm_extra_conf=0
     let g:ycm_cache_omnifunc=0
     let g:ycm_complete_in_comments=1
     let g:ycm_min_num_of_chars_for_completion=1
-	" rust src
-	let g:ycm_rust_src_path = '/root/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src'
+    " rust src
+    set hidden
+    let g:racer_cmd = "$HOME/.cargo/bin/racer"
+    let g:ycm_rust_src_path = "$RUST_SRC_PATH"
 " }}}
 
 " NERDTree {{{
@@ -153,7 +157,7 @@ let mapleader = ";"
 " }}}
 
 " vim-colorschemes {{{
-    if filereadable(expand("/root/.vim/bundle/vim-colorschemes/colors/molokai.vim"))
+    if filereadable(expand("$HOME/.vim/bundle/vim-colorschemes/colors/molokai.vim"))
         colorscheme molokai
     endif
 " }}}
@@ -178,12 +182,14 @@ let mapleader = ";"
 
     set autoindent
     set smartindent
+    set expandtab
     set tabstop=4
     set shiftwidth=4
     set softtabstop=4
     set t_Co=256
 
-    autocmd FileType c,cpp,go set shiftwidth=4 | set expandtab
+    "autocmd FileType c,c++,go set shiftwidth=4 | set expandtab
+    autocmd FileType py set shiftwidth=4 | set noexpandtab
 
     set cursorline
     "hi CursorLine   cterm=none ctermbg=black
