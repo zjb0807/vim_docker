@@ -44,6 +44,7 @@ Plugin 'https://github.com/scrooloose/syntastic'
 Plugin 'flazz/vim-colorschemes'
 "Plugin 'fatih/vim-go'
 Plugin 'racer-rust/vim-racer'
+Plugin 'wsdjeg/FlyGrep.vim'
 " #################### Plugin #################### "
 
 " All of your Plugins must be added before the following line
@@ -162,6 +163,10 @@ let mapleader = ";"
     endif
 " }}}
 
+" FlyGrep {{{
+    nnoremap <leader>gg :FlyGrep<CR>
+" }}}
+
 " config {{{
     syntax on
     set encoding=utf-8
@@ -190,6 +195,9 @@ let mapleader = ";"
 
     "autocmd FileType c,c++,go set shiftwidth=4 | set expandtab
     autocmd FileType py set shiftwidth=4 | set noexpandtab
+    autocmd FileType yaml setlocal indentkeys=!^F,o,O,0},0],<:>,0- ts=2 sw=2 et
+    autocmd FileType py,shell set commentstring=#\ %s
+    autocmd FileType java,c,cpp,go,rs set commentstring=//\ %s
 
     set cursorline
     "hi CursorLine   cterm=none ctermbg=black
